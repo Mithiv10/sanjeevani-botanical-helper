@@ -1,10 +1,7 @@
-
 import { ChatMessage } from "@/types/chat";
 
-// This is where we would normally use an environment variable
-const API_KEY = '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'; // Demo key - this would be replaced by actual key in production
+const GROQ_API_KEY = "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"; // Replace with actual Groq API key
 
-// System prompt to tune the model for Sanjeevani
 const SYSTEM_PROMPT = `You are Sanjeevani, an Ayurvedic medicinal chatbot specializing in natural home remedies. 
 Your primary purpose is to provide natural, traditional home remedies for common health issues.
 Always begin your responses with a brief, friendly greeting.
@@ -22,13 +19,11 @@ Remember to prioritize user safety and well-being in all interactions.`;
 
 export async function sendChatMessage(messages: ChatMessage[]): Promise<ChatMessage> {
   try {
-    // Format the messages for the OpenAI API
     const formattedMessages = messages.map(msg => ({
       role: msg.role,
       content: msg.content
     }));
     
-    // Add the system message if it's not already there
     if (!formattedMessages.some(msg => msg.role === 'system')) {
       formattedMessages.unshift({
         role: 'system',
@@ -36,16 +31,14 @@ export async function sendChatMessage(messages: ChatMessage[]): Promise<ChatMess
       });
     }
 
-    // In a real production app, this would be a call to your backend API
-    // which would then make the OpenAI call to protect your API key
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${API_KEY}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${GROQ_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: "llama3-8b-8192", // Use an appropriate Groq model
         messages: formattedMessages,
         temperature: 0.7,
         max_tokens: 500
@@ -54,7 +47,7 @@ export async function sendChatMessage(messages: ChatMessage[]): Promise<ChatMess
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.error?.message || 'Failed to get response from API');
+      throw new Error(error.error?.message || "Failed to get response from Groq API");
     }
 
     const data = await response.json();
@@ -63,11 +56,11 @@ export async function sendChatMessage(messages: ChatMessage[]): Promise<ChatMess
     return {
       id: crypto.randomUUID(),
       content: assistantMessage,
-      role: 'assistant',
+      role: "assistant",
       timestamp: new Date()
     };
   } catch (error) {
-    console.error('Error sending message:', error);
+    console.error("Error sending message:", error);
     throw error;
   }
 }
