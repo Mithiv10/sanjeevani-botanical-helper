@@ -8,18 +8,18 @@ const Index = () => {
   return (
     <ChatProvider>
       <Layout>
-        <div className="h-[calc(100vh-8rem)] flex flex-col">
-          <div className="mb-4 text-center">
-            <div className="flex items-center justify-center gap-2 mb-1">
+        <div className="h-full flex flex-col">
+          <div className="absolute top-4 left-0 right-0 text-center z-10">
+            <div className="flex items-center justify-center gap-2">
               <Leaf className="h-5 w-5 text-sanjeevani" />
-              <h2 className="text-2xl font-bold text-sanjeevani">Sanjeevani Botanical Helper</h2>
+              <h2 className="text-2xl font-bold text-sanjeevani">Sanjeevani</h2>
             </div>
-            <p className="text-sm text-gray-600 mb-2">
+            <p className="text-xs text-gray-600">
               Ask about natural home remedies for your health concerns
             </p>
           </div>
           
-          <div className="flex-1 shadow-lg rounded-lg overflow-hidden border border-sanjeevani/20">
+          <div className="flex-1">
             <ChatContainer />
           </div>
         </div>

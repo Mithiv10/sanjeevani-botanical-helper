@@ -18,7 +18,7 @@ export default function ChatHistory({ chatState }: ChatHistoryProps) {
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 bg-gradient-to-b from-green-50/50 to-white space-y-4">
+    <div className="flex-1 overflow-y-auto pt-20 pb-32 px-4 md:px-[10%]">
       {messages.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
           <div className="bg-gradient-to-br from-sanjeevani-light to-sanjeevani p-8 rounded-full shadow-inner">
@@ -31,28 +31,30 @@ export default function ChatHistory({ chatState }: ChatHistoryProps) {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-md text-sm">
-            <div className="bg-white p-3 rounded-lg border shadow-sm">
+            <div className="bg-white p-3 rounded-lg border shadow-sm cursor-pointer hover:bg-gray-50">
               "I have a headache that won't go away"
             </div>
-            <div className="bg-white p-3 rounded-lg border shadow-sm">
+            <div className="bg-white p-3 rounded-lg border shadow-sm cursor-pointer hover:bg-gray-50">
               "What helps with a sore throat?"
             </div>
-            <div className="bg-white p-3 rounded-lg border shadow-sm">
+            <div className="bg-white p-3 rounded-lg border shadow-sm cursor-pointer hover:bg-gray-50">
               "Natural remedies for seasonal allergies"
             </div>
-            <div className="bg-white p-3 rounded-lg border shadow-sm">
+            <div className="bg-white p-3 rounded-lg border shadow-sm cursor-pointer hover:bg-gray-50">
               "How to reduce fever naturally?"
             </div>
           </div>
         </div>
       ) : (
-        messages.map((message) => (
-          <ChatMessage key={message.id} message={message} />
-        ))
+        <div className="space-y-8 max-w-3xl mx-auto">
+          {messages.map((message) => (
+            <ChatMessage key={message.id} message={message} />
+          ))}
+        </div>
       )}
       
       {isLoading && (
-        <div className="flex justify-start">
+        <div className="flex justify-start max-w-3xl mx-auto mt-8">
           <div className="chat-message-content bg-gradient-to-br from-sanjeevani-blue to-sanjeevani-blue/90 text-gray-800 rounded-2xl rounded-tl-none max-w-[85%]">
             <div className="text-sm font-medium mb-1 px-4 pt-3">Sanjeevani</div>
             <div className="px-4 pb-3 flex items-center gap-2">
@@ -63,7 +65,7 @@ export default function ChatHistory({ chatState }: ChatHistoryProps) {
         </div>
       )}
       
-      <div ref={messagesEndRef} />
+      <div ref={messagesEndRef} className="h-4" />
     </div>
   );
 }
