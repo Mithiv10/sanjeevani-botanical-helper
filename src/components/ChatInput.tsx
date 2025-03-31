@@ -35,12 +35,12 @@ export default function ChatInput({ onSendMessage, isLoading }: ChatInputProps) 
         onChange={(e) => setMessageInput(e.target.value)}
         placeholder="Describe your health concern..."
         disabled={isLoading}
-        className="flex-1"
+        className="flex-1 border-sanjeevani/30 focus-visible:ring-sanjeevani"
       />
       <Button 
         type="submit" 
         disabled={isLoading || !messageInput.trim()} 
-        className="bg-sanjeevani hover:bg-sanjeevani-dark"
+        className="bg-sanjeevani hover:bg-sanjeevani-dark transition-colors"
       >
         <Send className="h-4 w-4" />
         <span className="sr-only">Send</span>
